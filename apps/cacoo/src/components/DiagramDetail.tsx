@@ -35,6 +35,11 @@ export const DiagramDetail: FC<Props> = ({ diagram }) => {
 			actions={
 				<ActionPanel>
 					<Action.OpenInBrowser title="Open Diagram" url={diagram.url} />
+					<Action.CopyToClipboard
+						title="Copy Diagram URL"
+						content={diagram.url}
+						shortcut={{ modifiers: ["cmd"], key: "u" }}
+					/>
 				</ActionPanel>
 			}
 		/>

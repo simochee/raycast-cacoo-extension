@@ -68,11 +68,13 @@ export const ListDiagrams: FC<Props> = ({
 							<Action.Push
 								title="Show Diagrams"
 								target={<DiagramDetail diagram={diagram} />}
+								icon={{ source: "snippets-16" }}
 							/>
 							<Action.OpenInBrowser title="Open Diagram" url={diagram.url} />
 							<Action.CopyToClipboard
 								title="Copy Diagram URL"
 								content={diagram.url}
+								shortcut={{ modifiers: ["cmd"], key: "u" }}
 							/>
 						</ActionPanel>
 					}
