@@ -7,18 +7,20 @@
 
 /* eslint-disable @typescript-eslint/ban-types */
 
-type ExtensionPreferences = {}
+type ExtensionPreferences = {
+	/** API Key - Your Cacoo API Key */
+	apiKey: string;
+};
 
 /** Preferences accessible in all the extension's commands */
-declare type Preferences = ExtensionPreferences
+declare type Preferences = ExtensionPreferences;
 
 declare namespace Preferences {
-  /** Preferences accessible in the `list-diagrams` command */
-  export type ListDiagrams = ExtensionPreferences & {}
+	/** Preferences accessible in the `list-diagrams` command */
+	export type ListDiagrams = ExtensionPreferences & {};
 }
 
 declare namespace Arguments {
-  /** Arguments passed to the `list-diagrams` command */
-  export type ListDiagrams = {}
+	/** Arguments passed to the `list-diagrams` command */
+	export type ListDiagrams = {};
 }
-

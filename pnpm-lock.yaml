@@ -23,6 +23,12 @@ importers:
       '@raycast/api':
         specifier: ^1.103.4
         version: 1.103.4(@types/node@24.9.1)(@types/react@19.2.2)
+      '@raycast/utils':
+        specifier: ^2.2.1
+        version: 2.2.1(@raycast/api@1.103.4(@types/node@24.9.1)(@types/react@19.2.2))(react@19.0.0)
+      ofetch:
+        specifier: ^1.4.1
+        version: 1.4.1
     devDependencies:
       '@types/node':
         specifier: ^24.9.1
@@ -416,6 +422,15 @@ packages:
       react-devtools:
         optional: true
 
+  '@raycast/utils@2.2.1':
+    resolution: {integrity: sha512-MBOD3eccHTu1HVQstoqoJJsA5PubWv18EUq8Dxwg1PEJE+xVjEuslXpsNgR/2RtpTGeKgGiXePxUiVp5mILN5w==}
+    peerDependencies:
+      '@raycast/api': '>=1.99.4'
+      react: '>=19.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+
   '@types/node@24.9.1':
     resolution: {integrity: sha512-QoiaXANRkSXK6p0Duvt56W208du4P9Uye9hWLWgGMDTEoKPhuenzNcC4vGUmrNkiOKTlIrBoyNQYNpSwfEZXSg==}
 
@@ -480,6 +495,13 @@ packages:
     peerDependenciesMeta:
       supports-color:
         optional: true
+
+  dequal@2.0.3:
+    resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
+    engines: {node: '>=6'}
+
+  destr@2.0.5:
+    resolution: {integrity: sha512-ugFTXCtDZunbzasqBxrK93Ik/DRYsO6S/fedkWEMKqt04xZ4csmnmwGDBAb07QWNaGMAmnTIemsYZCksjATwsA==}
 
   detect-indent@7.0.2:
     resolution: {integrity: sha512-y+8xyqdGLL+6sh0tVeHcfP/QDd8gUgbasolJJpY7NgeQGSZ739bDtSiaiDgtoicy+mtYB81dKLxO9xRhCyIB3A==}
@@ -639,6 +661,12 @@ packages:
     resolution: {integrity: sha512-WWdIxpyjEn+FhQJQQv9aQAYlHoNVdzIzUySNV1gHUPDSdZJ3yZn7pAAbQcV7B56Mvu881q9FZV+0Vx2xC44VWA==}
     engines: {node: ^18.17.0 || >=20.5.0}
 
+  node-fetch-native@1.6.7:
+    resolution: {integrity: sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q==}
+
+  ofetch@1.4.1:
+    resolution: {integrity: sha512-QZj2DfGplQAr2oj9KzceK9Hwz6Whxazmn85yYeVuS3u9XTMOGMRx0kO95MQ+vLsj/S/NwBDMMLU5hpxvI6Tklw==}
+
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -694,6 +722,9 @@ packages:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  ufo@1.6.1:
+    resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
 
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
@@ -1014,6 +1045,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@raycast/utils@2.2.1(@raycast/api@1.103.4(@types/node@24.9.1)(@types/react@19.2.2))(react@19.0.0)':
+    dependencies:
+      '@raycast/api': 1.103.4(@types/node@24.9.1)(@types/react@19.2.2)
+      dequal: 2.0.3
+    optionalDependencies:
+      react: 19.0.0
+
   '@types/node@24.9.1':
     dependencies:
       undici-types: 7.16.0
@@ -1065,6 +1103,10 @@ snapshots:
       ms: 2.1.3
     optionalDependencies:
       supports-color: 8.1.1
+
+  dequal@2.0.3: {}
+
+  destr@2.0.5: {}
 
   detect-indent@7.0.2: {}
 
@@ -1206,6 +1248,14 @@ snapshots:
 
   mute-stream@2.0.0: {}
 
+  node-fetch-native@1.6.7: {}
+
+  ofetch@1.4.1:
+    dependencies:
+      destr: 2.0.5
+      node-fetch-native: 1.6.7
+      ufo: 1.6.1
+
   picocolors@1.1.1: {}
 
   picomatch@4.0.3: {}
@@ -1252,6 +1302,8 @@ snapshots:
   type-fest@0.21.3: {}
 
   typescript@5.9.3: {}
+
+  ufo@1.6.1: {}
 
   undici-types@7.16.0: {}
 
