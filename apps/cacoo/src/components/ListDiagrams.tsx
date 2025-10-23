@@ -1,6 +1,5 @@
 import { Action, ActionPanel, Grid } from "@raycast/api";
 import type { UsePromiseReturnType } from "@raycast/utils";
-import type { FC } from "react";
 import {
 	type GetDiagramsResponse,
 	type GetOrganizationsResponse,
@@ -19,7 +18,7 @@ type Props = {
 	onChangeKeyword: (keyword: string) => void;
 };
 
-export const ListDiagrams: FC<Props> = ({
+export const ListDiagrams = ({
 	organizations,
 	diagrams,
 	isLoading,
@@ -28,7 +27,7 @@ export const ListDiagrams: FC<Props> = ({
 	keyword,
 	onChangeOrganizationKey,
 	onChangeKeyword,
-}) => {
+}: Props) => {
 	return (
 		<Grid
 			isLoading={isLoading}

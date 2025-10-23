@@ -1,6 +1,5 @@
 import { Action, ActionPanel, Detail } from "@raycast/api";
 import { useCachedPromise } from "@raycast/utils";
-import type { FC } from "react";
 import {
 	type GetDiagramsResponse,
 	getDiagramById,
@@ -11,7 +10,7 @@ type Props = {
 	diagram: GetDiagramsResponse["result"][number];
 };
 
-export const DiagramDetail: FC<Props> = ({ diagram }) => {
+export const DiagramDetail = ({ diagram }: Props) => {
 	const { isLoading, data } = useCachedPromise(
 		async (diagramId: string) => {
 			return getDiagramById({ diagramId });
