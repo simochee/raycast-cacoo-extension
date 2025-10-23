@@ -2,33 +2,33 @@ import { Grid, getPreferenceValues } from "@raycast/api";
 import { useCachedPromise, useCachedState } from "@raycast/utils";
 import { useState } from "react";
 import { getDiagrams, getOrganizations } from "./api/cacoo";
+import { ListDiagrams } from "./components/ListDiagrams";
 
-export default function ListDiagrams() {
+export default function ListDiagramsCommand() {
 	const [keyword, setKeyword] = useState("");
 	const [organizationKey, setOrganizationKey] = useCachedState<string | null>(
 		"organization-id",
 		null,
 	);
 
-	const { apiKey } = getPreferenceValues<{ apiKey: string }>();
+	const { isLoading: isLoadingOrganizations, data: organizations } =
+		useCachedPromise(
+			async () => {
+				const { result } = await getOrganizations();
 
-	const { data: organizations } = useCachedPromise(
-		async () => {
-			const { result } = await getOrganizations();
+				if (!organizationKey) {
+					setOrganizationKey(result[0].key || null);
+				}
 
-			if (!organizationKey) {
-				setOrganizationKey(result[0].key || null);
-			}
+				return result;
+			},
+			[],
+			{
+				initialData: [],
+			},
+		);
 
-			return result;
-		},
-		[],
-		{
-			initialData: [],
-		},
-	);
-
-	const { isLoading, data: diagrams } = useCachedPromise(
+	const { isLoading: isLoadingDiagrams, data: diagrams } = useCachedPromise(
 		async (organizationKey: string | null, keyword: string) => {
 			if (!organizationKey) return [];
 
@@ -46,34 +46,14 @@ export default function ListDiagrams() {
 	);
 
 	return (
-		<Grid
-			isLoading={isLoading}
-			throttle
-			onSearchTextChange={setKeyword}
-			searchBarAccessory={
-				<Grid.Dropdown tooltip="Organizations">
-					{organizations.map((organization) => (
-						<Grid.Dropdown.Item
-							key={organization.id}
-							title={organization.name}
-							value={organization.key}
-						/>
-					))}
-				</Grid.Dropdown>
-			}
-		>
-			{diagrams.map((item) => (
-				<Grid.Item
-					key={item.diagramId}
-					title={item.title}
-					subtitle={item.description}
-					content={`${item.imageUrlForApi}?apiKey=${apiKey}`}
-					accessory={{
-						icon: item.owner.imageUrl,
-						tooltip: item.owner.nickname,
-					}}
-				/>
-			))}
-		</Grid>
+		<ListDiagrams
+			organizations={organizations}
+			diagrams={diagrams}
+			isLoading={isLoadingOrganizations || isLoadingDiagrams}
+			organizationKey={organizationKey}
+			keyword={keyword}
+			onChangeOrganizationKey={setOrganizationKey}
+			onChangeKeyword={setKeyword}
+		/>
 	);
 }

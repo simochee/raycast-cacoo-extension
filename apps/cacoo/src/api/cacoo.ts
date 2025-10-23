@@ -8,11 +8,6 @@ const client = ofetch.create({
 	onRequest: ({ options }) => {
 		options.query ||= {};
 		options.query.apiKey = apiKey;
-
-		console.log("request!");
-	},
-	onResponseError: () => {
-		console.log("ERROR!");
 	},
 	parseResponse: JSON.parse,
 });
@@ -66,4 +61,10 @@ export const getDiagrams = async (request: GetDiagramsRequest) => {
 	return client<GetDiagramsResponse>("/api/v1/diagrams.json", {
 		query: request,
 	});
+};
+
+export const withApiKey = (input: string) => {
+	const url = new URL(input);
+	url.searchParams.set("apiKey", apiKey);
+	return url.href;
 };
