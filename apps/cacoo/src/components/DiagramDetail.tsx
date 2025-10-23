@@ -34,11 +34,7 @@ export const DiagramDetail: FC<Props> = ({ diagram }) => {
 			markdown={markdown}
 			actions={
 				<ActionPanel>
-					<Action.OpenInBrowser
-						title="Open Diagram"
-						url={diagram.url}
-						shortcut={{ modifiers: ["cmd"], key: "o" }}
-					/>
+					<Action.OpenInBrowser title="Open Diagram" url={diagram.url} />
 				</ActionPanel>
 			}
 		/>

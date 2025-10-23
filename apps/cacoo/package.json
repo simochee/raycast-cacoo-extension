@@ -18,6 +18,13 @@
 			"subtitle": "Cacoo",
 			"description": "Search your diagrams",
 			"mode": "view"
+		},
+		{
+			"name": "new-diagram",
+			"title": "New Diagram",
+			"subtitle": "Cacoo",
+			"description": "Create new diagram",
+			"mode": "no-view"
 		}
 	],
 	"preferences": [

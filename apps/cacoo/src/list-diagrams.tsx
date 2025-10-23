@@ -4,7 +4,7 @@ import { useState } from "react";
 import { getDiagrams, getOrganizations } from "./api/cacoo";
 import { ListDiagrams } from "./components/ListDiagrams";
 
-export default function ListDiagramsCommand() {
+export default function Command() {
 	const [keyword, setKeyword] = useState("");
 	const [organizationKey, setOrganizationKey] = useCachedState<string | null>(
 		"organization-id",

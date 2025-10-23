@@ -32,6 +32,13 @@ export const ListDiagrams: FC<Props> = ({
 			throttle
 			searchText={keyword}
 			onSearchTextChange={onChangeKeyword}
+			pagination={{
+				hasMore: true,
+				onLoadMore() {
+					console.log("load more...");
+				},
+				pageSize: 25,
+			}}
 			searchBarAccessory={
 				<Grid.Dropdown
 					tooltip="Organizations"
@@ -65,11 +72,7 @@ export const ListDiagrams: FC<Props> = ({
 								title="Show Diagrams"
 								target={<DiagramDetail diagram={diagram} />}
 							/>
-							<Action.OpenInBrowser
-								title="Open Diagram"
-								url={diagram.url}
-								shortcut={{ modifiers: ["cmd"], key: "o" }}
-							/>
+							<Action.OpenInBrowser title="Open Diagram" url={diagram.url} />
 						</ActionPanel>
 					}
 				/>
