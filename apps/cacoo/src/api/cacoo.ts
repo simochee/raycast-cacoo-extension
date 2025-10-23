@@ -42,7 +42,7 @@ export type GetDiagramsResponse = {
 		url: string;
 		imageUrl: string;
 		imageUrlForApi: string;
-		diagramId: number;
+		diagramId: string;
 		title: string;
 		description: string;
 		owner: {
@@ -61,6 +61,25 @@ export const getDiagrams = async (request: GetDiagramsRequest) => {
 	return client<GetDiagramsResponse>("/api/v1/diagrams.json", {
 		query: request,
 	});
+};
+
+export type GetDiagramByIdRequest = {
+	diagramId: string;
+};
+
+export type GetDiagramByIdResponse = {
+	sheets: Array<{
+		url: string;
+		name: string;
+		imageUrlForApi: string;
+		comments: [];
+	}>;
+};
+
+export const getDiagramById = async (request: GetDiagramByIdRequest) => {
+	return client<GetDiagramByIdResponse>(
+		`/api/v1/diagrams/${request.diagramId}.json`,
+	);
 };
 
 export const withApiKey = (input: string) => {

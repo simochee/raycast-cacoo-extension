@@ -1,10 +1,11 @@
-import { Grid } from "@raycast/api";
-import type { FC } from "react";
+import { Action, ActionPanel, Detail, Grid } from "@raycast/api";
+import { type FC, useState } from "react";
 import {
 	type GetDiagramsResponse,
 	type GetOrganizationsResponse,
 	withApiKey,
 } from "../api/cacoo";
+import { DiagramDetail } from "./DiagramDetail";
 
 type Props = {
 	organizations: GetOrganizationsResponse["result"];
@@ -50,6 +51,7 @@ export const ListDiagrams: FC<Props> = ({
 			{diagrams.map((diagram) => (
 				<Grid.Item
 					key={diagram.diagramId}
+					id={diagram.diagramId}
 					title={diagram.title}
 					subtitle={diagram.description}
 					content={withApiKey(diagram.imageUrlForApi)}
@@ -57,6 +59,19 @@ export const ListDiagrams: FC<Props> = ({
 						icon: diagram.owner.imageUrl,
 						tooltip: diagram.owner.nickname,
 					}}
+					actions={
+						<ActionPanel>
+							<Action.Push
+								title="Show Diagrams"
+								target={<DiagramDetail diagram={diagram} />}
+							/>
+							<Action.OpenInBrowser
+								title="Open Diagram"
+								url={diagram.url}
+								shortcut={{ modifiers: ["cmd"], key: "o" }}
+							/>
+						</ActionPanel>
+					}
 				/>
 			))}
 		</Grid>
