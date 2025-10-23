@@ -1,5 +1,6 @@
-import { Action, ActionPanel, Detail, Grid } from "@raycast/api";
-import { type FC, useState } from "react";
+import { Action, ActionPanel, Grid } from "@raycast/api";
+import type { UsePromiseReturnType } from "@raycast/utils";
+import type { FC } from "react";
 import {
 	type GetDiagramsResponse,
 	type GetOrganizationsResponse,
@@ -11,6 +12,7 @@ type Props = {
 	organizations: GetOrganizationsResponse["result"];
 	diagrams: GetDiagramsResponse["result"];
 	isLoading: boolean;
+	pagination: UsePromiseReturnType<unknown>["pagination"];
 	organizationKey: string | null;
 	keyword: string;
 	onChangeOrganizationKey: (organizationKey: string) => void;
@@ -21,6 +23,7 @@ export const ListDiagrams: FC<Props> = ({
 	organizations,
 	diagrams,
 	isLoading,
+	pagination,
 	organizationKey,
 	keyword,
 	onChangeOrganizationKey,
@@ -32,13 +35,7 @@ export const ListDiagrams: FC<Props> = ({
 			throttle
 			searchText={keyword}
 			onSearchTextChange={onChangeKeyword}
-			pagination={{
-				hasMore: true,
-				onLoadMore() {
-					console.log("load more...");
-				},
-				pageSize: 25,
-			}}
+			pagination={pagination}
 			searchBarAccessory={
 				<Grid.Dropdown
 					tooltip="Organizations"
@@ -73,6 +70,10 @@ export const ListDiagrams: FC<Props> = ({
 								target={<DiagramDetail diagram={diagram} />}
 							/>
 							<Action.OpenInBrowser title="Open Diagram" url={diagram.url} />
+							<Action.CopyToClipboard
+								title="Copy Diagram URL"
+								content={diagram.url}
+							/>
 						</ActionPanel>
 					}
 				/>

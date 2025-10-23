@@ -1,8 +1,9 @@
-import { Grid, getPreferenceValues } from "@raycast/api";
-import { useCachedPromise, useCachedState } from "@raycast/utils";
+import { useCachedPromise, useCachedState, usePromise } from "@raycast/utils";
 import { useState } from "react";
 import { getDiagrams, getOrganizations } from "./api/cacoo";
 import { ListDiagrams } from "./components/ListDiagrams";
+
+const PER_PAGE = 15;
 
 export default function Command() {
 	const [keyword, setKeyword] = useState("");
@@ -28,21 +29,25 @@ export default function Command() {
 			},
 		);
 
-	const { isLoading: isLoadingDiagrams, data: diagrams } = useCachedPromise(
-		async (organizationKey: string | null, keyword: string) => {
-			if (!organizationKey) return [];
+	const {
+		isLoading: isLoadingDiagrams,
+		data: diagrams = [],
+		pagination,
+	} = usePromise(
+		(organizationKey: string | null, keyword: string) =>
+			async (options: { page: number }) => {
+				if (!organizationKey) return { data: [], hasMore: false };
 
-			const { result } = await getDiagrams({
-				organizationKey,
-				keyword,
-			});
+				const { result, count } = await getDiagrams({
+					organizationKey,
+					keyword,
+					limit: PER_PAGE,
+					offset: options.page * PER_PAGE,
+				});
 
-			return result;
-		},
+				return { data: result, hasMore: count > (options.page + 1) * PER_PAGE };
+			},
 		[organizationKey, keyword],
-		{
-			initialData: [],
-		},
 	);
 
 	return (
@@ -50,6 +55,7 @@ export default function Command() {
 			organizations={organizations}
 			diagrams={diagrams}
 			isLoading={isLoadingOrganizations || isLoadingDiagrams}
+			pagination={pagination}
 			organizationKey={organizationKey}
 			keyword={keyword}
 			onChangeOrganizationKey={setOrganizationKey}
