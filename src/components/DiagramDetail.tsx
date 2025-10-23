@@ -18,8 +18,10 @@ export const DiagramDetail = ({ diagram }: Props) => {
 		[diagram.diagramId],
 	);
 
+	console.log(data);
+
 	const markdown = data?.sheets
-		.map(({ name, url, imageUrlForApi }, i) =>
+		.map(({ name, url, imageUrlForApi }) =>
 			[`[${name}](${url})`, `![${name}](${withApiKey(imageUrlForApi)})`].join(
 				"  \n",
 			),
@@ -33,9 +35,9 @@ export const DiagramDetail = ({ diagram }: Props) => {
 			markdown={markdown}
 			actions={
 				<ActionPanel>
-					<Action.OpenInBrowser title="Open Diagram" url={diagram.url} />
+					<Action.OpenInBrowser title="Open in Browser" url={diagram.url} />
 					<Action.CopyToClipboard
-						title="Copy Diagram URL"
+						title="Copy URL"
 						content={diagram.url}
 						shortcut={{ modifiers: ["cmd"], key: "u" }}
 					/>

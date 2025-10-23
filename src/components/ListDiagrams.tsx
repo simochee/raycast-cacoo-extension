@@ -36,19 +36,21 @@ export const ListDiagrams = ({
 			onSearchTextChange={onChangeKeyword}
 			pagination={pagination}
 			searchBarAccessory={
-				<Grid.Dropdown
-					tooltip="Organizations"
-					value={organizationKey}
-					onChange={onChangeOrganizationKey}
-				>
-					{organizations.map((organization) => (
-						<Grid.Dropdown.Item
-							key={organization.id}
-							title={organization.name}
-							value={organization.key}
-						/>
-					))}
-				</Grid.Dropdown>
+				organizationKey ? (
+					<Grid.Dropdown
+						tooltip="Organizations"
+						value={organizationKey}
+						onChange={onChangeOrganizationKey}
+					>
+						{organizations.map((organization) => (
+							<Grid.Dropdown.Item
+								key={organization.id}
+								title={organization.name}
+								value={organization.key}
+							/>
+						))}
+					</Grid.Dropdown>
+				) : null
 			}
 		>
 			{diagrams.map((diagram) => (
@@ -65,13 +67,13 @@ export const ListDiagrams = ({
 					actions={
 						<ActionPanel>
 							<Action.Push
-								title="Show Diagrams"
+								title="Show Sheets"
 								target={<DiagramDetail diagram={diagram} />}
 								icon={{ source: "snippets-16" }}
 							/>
-							<Action.OpenInBrowser title="Open Diagram" url={diagram.url} />
+							<Action.OpenInBrowser title="Open in Browser" url={diagram.url} />
 							<Action.CopyToClipboard
-								title="Copy Diagram URL"
+								title="Copy URL"
 								content={diagram.url}
 								shortcut={{ modifiers: ["cmd"], key: "u" }}
 							/>
