@@ -1,8 +1,11 @@
 {
-  "private": true,
-  "devDependencies": {
-    "@biomejs/biome": "^2.2.7",
-    "lefthook": "^2.0.0",
-    "sort-package-json": "^3.4.0"
-  }
+	"private": true,
+	"scripts": {
+		"dev": "pnpm --parallel -r dev"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.2.7",
+		"lefthook": "^2.0.0",
+		"sort-package-json": "^3.4.0"
+	}
 }

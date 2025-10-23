@@ -1,0 +1,38 @@
+{
+	"$schema": "https://www.raycast.com/schemas/extension.json",
+	"name": "cacoo",
+	"title": "Cacoo",
+	"description": "Create and search Cacoo diagrams.",
+	"icon": "icon.svg",
+	"author": "simochee",
+	"categories": [
+		"Productivity",
+		"Design Tools",
+		"Developer Tools"
+	],
+	"license": "MIT",
+	"commands": [
+		{
+			"name": "list-diagrams",
+			"title": "My Diagrams",
+			"subtitle": "Cacoo",
+			"description": "Search your diagrams",
+			"mode": "view"
+		}
+	],
+	"preferences": [],
+	"scripts": {
+		"build": "ray build -e dist",
+		"dev": "ray develop",
+		"publish": "ray publish"
+	},
+	"dependencies": {
+		"@raycast/api": "^1.103.4"
+	},
+	"devDependencies": {
+		"@types/node": "^24.9.1",
+		"@types/react": "^19.2.2",
+		"typescript": "^5.9.3",
+		"tsconfigs": "workspace:*"
+	}
+}
